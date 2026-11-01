@@ -278,7 +278,7 @@ export default {
   "guide.docTitle": "Oyuncu Rehberi · Squeek Garden",
   "guide.h": "Oyuncu rehberi",
   "guide.intro":
-    "Squeek Garden, gerçek Squeekchain hamsteri Squeektoshi'nin çarkında yaptıklarından hamster atıştırmalıkları yetiştirir. Her veri Ethereum Sepolia'daki SqueekCore sözleşmesinden gelir, bu yüzden kimse bir bitkiyi hızlandıramaz, biz bile. Yaptığın her eylem bir işlemdir.",
+    "Squeek Garden, gerçek Squeekchain hamsteri Squeektoshi'nin çarkında yaptıklarından hamster atıştırmalıkları yetiştirir. Her veri Ethereum Sepolia'daki SqueekCore sözleşmesinden gelir, bu yüzden kimse bir bitkiyi elle hızlandıramaz. Yaptığın her eylem bir işlemdir.",
   "guide.toc": "Bu sayfada",
   "toc.start": "Başlarken",
   "toc.growth": "Bitkiler nasıl büyür",
@@ -336,7 +336,7 @@ export default {
   "faq.q2": "%100 gösteriyor ama hasat edemiyorum.",
   "faq.a2": "Büyümesinin son kısmı hâlâ Ethereum'a doğru yolda. Hamsterin emeği, koştuktan 5 ila 20 dakika sonra, 10 dakikalık turlarla kesinleşir.",
   "faq.q3": "Biri hamsteri hızlandırabilir ya da koşusunu taklit edebilir mi?",
-  "faq.a3": "Hayır. Bahçe sözleşmesi SqueekCore'u doğrudan okur; büyüme için ne bir oracle ne de bir yönetici anahtarı var.",
+  "faq.a3": "Bahçe sözleşmesi SqueekCore'u doğrudan okur, oracle kullanmaz. Sahibin kullanabildiği tek anahtar, Squeekchain yeniden kurulduktan sonra bahçeyi yeni bir SqueekCore'a taşımaktır; bu olduğunda bitkiler ilerlemelerini korur.",
   "faq.q4": "SQK nereden gelir, nereye gider?",
   "faq.a4": "SQK, Squeekchain'in Sepolia üzerindeki tokenidir ve bir Squeek stake ederek kazanılır. Ücretli tohumların bedeli bahçe kasasına gider.",
 

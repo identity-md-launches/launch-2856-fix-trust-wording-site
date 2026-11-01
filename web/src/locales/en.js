@@ -280,7 +280,7 @@ export default {
   "guide.docTitle": "Player Guide · Squeek Garden",
   "guide.h": "Player guide",
   "guide.intro":
-    "Squeek Garden grows hamster snacks from what the real Squeekchain hamster, Squeektoshi, does on his wheel. Every reading comes from the SqueekCore contract on Ethereum Sepolia, so nobody can speed a plant up, not even us. Every action you take is a transaction.",
+    "Squeek Garden grows hamster snacks from what the real Squeekchain hamster, Squeektoshi, does on his wheel. Every reading comes from the SqueekCore contract on Ethereum Sepolia, so nobody can speed a plant up by hand. Every action you take is a transaction.",
   "guide.toc": "On this page",
   "toc.start": "Getting started",
   "toc.growth": "How plants grow",
@@ -338,7 +338,7 @@ export default {
   "faq.q2": "It shows 100% but I cannot harvest it.",
   "faq.a2": "The last part of its growth is still on its way to Ethereum. The hamster's work settles in 10-minute rounds, 5 to 20 minutes after he ran.",
   "faq.q3": "Can anyone speed the hamster up or fake his running?",
-  "faq.a3": "No. The garden contract reads SqueekCore directly; there is no oracle and no admin switch for growth.",
+  "faq.a3": "The garden contract reads SqueekCore directly, with no oracle. The only owner switch is moving the garden to a new SqueekCore after a Squeekchain reinstall, and plants keep their progress when that happens.",
   "faq.q4": "Where does SQK come from, and where does it go?",
   "faq.a4": "SQK is Squeekchain's token on Sepolia, earned by staking a Squeek. Paid seeds send their price to the garden treasury.",
 

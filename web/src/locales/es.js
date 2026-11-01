@@ -278,7 +278,7 @@ export default {
   "guide.docTitle": "Guía del jugador · Squeek Garden",
   "guide.h": "Guía del jugador",
   "guide.intro":
-    "Squeek Garden hace crecer snacks para hámster a partir de lo que hace en su rueda Squeektoshi, el hámster real de Squeekchain. Cada lectura viene del contrato SqueekCore en Ethereum Sepolia, así que nadie puede acelerar una planta, ni siquiera nosotros. Cada acción que haces es una transacción.",
+    "Squeek Garden hace crecer snacks para hámster a partir de lo que hace en su rueda Squeektoshi, el hámster real de Squeekchain. Cada lectura viene del contrato SqueekCore en Ethereum Sepolia, así que nadie puede acelerar una planta a mano. Cada acción que haces es una transacción.",
   "guide.toc": "En esta página",
   "toc.start": "Primeros pasos",
   "toc.growth": "Cómo crecen las plantas",
@@ -336,7 +336,7 @@ export default {
   "faq.q2": "Muestra 100% pero no puedo cosecharla.",
   "faq.a2": "La última parte de su crecimiento aún va de camino a Ethereum. El trabajo del hámster se confirma en rondas de 10 minutos, de 5 a 20 minutos después de que corriera.",
   "faq.q3": "¿Puede alguien acelerar al hámster o falsear sus carreras?",
-  "faq.a3": "No. El contrato del jardín lee SqueekCore directamente; no hay oráculo ni interruptor de administrador para el crecimiento.",
+  "faq.a3": "El contrato del jardín lee SqueekCore directamente, sin oráculo. El único interruptor del propietario permite trasladar el jardín a un nuevo SqueekCore después de una reinstalación de Squeekchain, y las plantas conservan su progreso cuando eso ocurre.",
   "faq.q4": "¿De dónde salen los SQK y adónde van?",
   "faq.a4": "SQK es el token de Squeekchain en Sepolia, que se gana haciendo staking de un Squeek. Las semillas de pago envían su precio a la tesorería del jardín.",
 

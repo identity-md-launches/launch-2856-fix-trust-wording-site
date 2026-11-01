@@ -263,7 +263,7 @@ export default {
   "guide.docTitle": "玩家指南 · Squeek Garden",
   "guide.h": "玩家指南",
   "guide.intro":
-    "Squeek Garden 根据 Squeekchain 的真实仓鼠 Squeektoshi 在转轮上的表现来种植仓鼠零食。每一条读数都来自 Ethereum Sepolia 上的 SqueekCore 合约，所以谁都没法让植物长得更快，连我们也不行。你的每个操作都是一笔交易。",
+    "Squeek Garden 根据 Squeekchain 的真实仓鼠 Squeektoshi 在转轮上的表现来种植仓鼠零食。每一条读数都来自 Ethereum Sepolia 上的 SqueekCore 合约，所以谁都没法手动加快植物的生长。你的每个操作都是一笔交易。",
   "guide.toc": "本页内容",
   "toc.start": "入门",
   "toc.growth": "植物如何生长",
@@ -321,7 +321,7 @@ export default {
   "faq.q2": "显示 100%，但我无法收获。",
   "faq.a2": "它最后一部分的生长还在发往 Ethereum 的路上。仓鼠的工作量以 10 分钟为一轮结算，在他跑完后 5 到 20 分钟完成。",
   "faq.q3": "有人能让仓鼠跑得更快，或者伪造他的跑步吗？",
-  "faq.a3": "不能。花园合约直接读取 SqueekCore；生长既没有预言机，也没有管理员开关。",
+  "faq.a3": "花园合约直接读取 SqueekCore，无需预言机。所有者唯一可用的开关是在 Squeekchain 重新安装后，将花园迁移到新的 SqueekCore；迁移时植物会保留生长进度。",
   "faq.q4": "SQK 从哪里来，又去了哪里？",
   "faq.a4": "SQK 是 Squeekchain 在 Sepolia 上的代币，通过质押 Squeek 获得。付费种子的价格会进入花园金库。",
 
