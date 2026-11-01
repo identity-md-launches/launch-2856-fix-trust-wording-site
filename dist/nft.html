@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="nft.docTitle">NFT · Squeek Garden</title>
+    <meta name="description" content="Squeek Garden NFT: 1,000 animated garden covers, and what a Squeek NFT does in the garden." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐹</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="./assets/nft-gGsoytwt.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/nav-CkCmtJUS.js">
+    <link rel="stylesheet" crossorigin href="./assets/nav-BfWkdLPa.css">
+  </head>
+  <body class="doc-page">
+    <header class="top">
+      <div class="brand">
+        <h1><span class="logo" aria-hidden="true">🐹</span>Squeek Garden</h1>
+        <nav class="nav" aria-label="Pages" data-i18n-aria="nav.pages">
+          <a href="./" data-i18n="nav.garden">Garden</a>
+          <a href="guide.html" data-i18n="nav.guide">Guide</a>
+          <a href="nft.html" data-i18n="nav.nft">NFT</a>
+        </nav>
+      </div>
+      <div class="top-right">
+        <a class="button primary page-link" href="./" data-i18n="nav.play">Play</a>
+      </div>
+    </header>
+
+    <main class="doc">
+      <section class="mint card" aria-labelledby="mint-title">
+        <figure class="mint-art">
+          <img src="./art/nft-cover.gif" width="1024" height="1024" data-i18n-alt="mint.alt" alt="" />
+        </figure>
+
+        <div class="mint-panel">
+          <h2 id="mint-title">Squeek Garden</h2>
+          <p class="mint-lead" data-i18n="mint.lead"></p>
+
+          <dl class="mint-facts">
+            <div><dt data-i18n="mint.supply">Supply</dt><dd>1,000</dd></div>
+            <div><dt data-i18n="mint.minted">Minted</dt><dd>0</dd></div>
+            <div><dt data-i18n="mint.price">Mint price</dt><dd class="free" data-i18n="mint.free">Free</dd></div>
+          </dl>
+
+          <div class="mint-progress" aria-hidden="true"><i></i></div>
+          <p class="mint-count" id="mint-left"></p>
+
+          <div class="mint-buy">
+            <div class="stepper" role="group" data-i18n-aria="mint.amount">
+              <button type="button" disabled data-i18n-aria="mint.less">−</button>
+              <output>1</output>
+              <button type="button" disabled data-i18n-aria="mint.more">+</button>
+            </div>
+            <button class="primary big mint-btn" type="button" disabled data-i18n="mint.button">Not open yet</button>
+          </div>
+          <p class="hint" data-i18n="mint.hint"></p>
+        </div>
+      </section>
+
+      <section class="card nft-hero">
+        <div class="nft-hero-text">
+          <span class="status-pill" id="nft-status" data-i18n="status.checking">Checking…</span>
+          <h2 data-i18n="holders.h">Squeek NFT holder plots</h2>
+          <p data-i18n-html="holders.p"></p>
+          <p class="hint" id="nft-status-text"></p>
+        </div>
+        <div class="nft-plots" id="nft-plots" aria-hidden="true"></div>
+      </section>
+
+      <div class="doc-two">
+        <section class="card doc-section">
+          <h2 data-i18n="get.h">What holders get</h2>
+          <ul class="doc-list">
+            <li data-i18n-html="get.li1"></li>
+            <li data-i18n="get.li2"></li>
+            <li data-i18n="get.li3"></li>
+          </ul>
+        </section>
+
+        <section class="card doc-section bind-card">
+          <h2 data-i18n="bind.h">Bind your Squeek</h2>
+          <p data-i18n="bind.p"></p>
+          <p class="bind-status" id="bind-status" aria-live="polite"></p>
+          <button class="primary" id="bind-find" data-i18n="bind.find">Find my Squeeks</button>
+          <div class="bind-list" id="bind-list"></div>
+          <form class="row bind-manual" id="bind-manual">
+            <input name="id" inputmode="numeric" pattern="[0-9]+" autocomplete="off" data-i18n-placeholder="bind.manual" data-i18n-aria="bind.manual" />
+            <button type="submit" data-i18n="bind.manualButton">Bind</button>
+          </form>
+          <p class="nft-result" id="bind-result" aria-live="polite"></p>
+        </section>
+      </div>
+
+      <section class="card doc-section">
+        <h2 data-i18n="know.h">Good to know</h2>
+        <ul class="doc-list">
+          <li data-i18n-html="know.li1"></li>
+          <li data-i18n="know.li2"></li>
+          <li data-i18n="know.li3"></li>
+          <li id="nft-collection" data-i18n="know.collection"></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="foot doc-foot">
+      <span data-i18n="foot.doc"></span>
+    </footer>
+  </body>
+</html>

@@ -5,7 +5,6 @@ cache/
 coverage/
 typechain-types/
 web/node_modules/
-dist/
 web/dist/
 .claude/
 coverage.json

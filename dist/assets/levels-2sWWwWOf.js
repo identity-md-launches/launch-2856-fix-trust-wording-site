@@ -1,0 +1,1 @@
+const _=[30,100,250,600,1800,4e3,7500,12e3,18e3],o=8e3;function e(r){return r<=1?0:r<=10?_[r-2]:18e3+(r-10)*o}function u(r){const t=Number(r);if(t>=18e3)return 10+Math.floor((t-18e3)/o);let n=1;for(;t>=e(n+1);)n++;return n}export{u as l,e as p};

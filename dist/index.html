@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="garden.docTitle">Squeek Garden</title>
+    <meta name="description" content="Squeektoshi's garden: hamster snacks that grow only while the Squeekchain hamster runs." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐹</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="./assets/main-pLU05r4f.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/nav-CkCmtJUS.js">
+    <link rel="modulepreload" crossorigin href="./assets/levels-2sWWwWOf.js">
+    <link rel="stylesheet" crossorigin href="./assets/nav-BfWkdLPa.css">
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <h1><span class="logo" aria-hidden="true">🐹</span>Squeek Garden</h1>
+        <nav class="nav" aria-label="Pages" data-i18n-aria="nav.pages">
+          <a href="./" data-i18n="nav.garden">Garden</a>
+          <a href="guide.html" data-i18n="nav.guide">Guide</a>
+          <a href="nft.html" data-i18n="nav.nft">NFT</a>
+        </nav>
+      </div>
+      <div class="top-right">
+        <div class="wallet" id="wallet"></div>
+        <button class="icon-btn" id="mute" data-action="mute" aria-label="Sound on"></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="stage" id="stage" aria-live="polite"></section>
+      <section class="profile" id="profile" hidden></section>
+
+      <div class="play">
+        <section class="field-card">
+          <div class="field-head">
+            <h2 id="garden-title" data-i18n="garden.yours">Your garden</h2>
+            <div class="bulk" id="bulk"></div>
+          </div>
+          <div class="field" id="field">
+            <div class="garden" id="garden"></div>
+          </div>
+          <p class="hint" id="garden-note"></p>
+        </section>
+
+        <aside class="side">
+          <section class="card">
+            <div class="section-head">
+              <h2 data-i18n="seedbag.title">Seed bag</h2>
+              <p class="hint" data-i18n="seedbag.hint">Pick a snack, then tap an empty plot.</p>
+            </div>
+            <div class="seeds" id="seeds"></div>
+          </section>
+        </aside>
+      </div>
+
+      <div class="lower">
+        <section class="card">
+          <div class="section-head">
+            <h2 data-i18n="board.title">Leaderboard</h2>
+            <div class="tabs" id="board-tabs" role="tablist"></div>
+          </div>
+          <ol class="board" id="board"></ol>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h2 data-i18n="news.title">Garden news</h2>
+          </div>
+          <form class="visit" id="visit">
+            <label for="visit-name" data-i18n="visit.label">Visit a neighbour</label>
+            <div class="row">
+              <input id="visit-name" name="name" placeholder="nickname or 0x address" data-i18n-placeholder="visit.placeholder" autocomplete="off" spellcheck="false" />
+              <button type="submit" data-i18n="visit.button">Visit</button>
+            </div>
+          </form>
+          <ul class="feed" id="feed"></ul>
+        </section>
+      </div>
+
+      <section class="card invite-card">
+        <div class="section-head">
+          <h2 data-i18n="invite.h">Invite friends</h2>
+        </div>
+        <p class="hint" data-i18n="invite.p"></p>
+        <div id="invite"></div>
+      </section>
+
+      <section class="card how">
+        <div class="section-head">
+          <h2 data-i18n="how.title">How Squeektoshi's garden grows</h2>
+          <a class="more-link page-link" href="guide.html" data-i18n="how.more">Full player guide →</a>
+        </div>
+        <div class="how-grid">
+          <div><b data-i18n="how.work.t">⚙️ Wheel snacks</b><p data-i18n="how.work.p">Grow with every pass of the real wheel, read from SqueekCore on Ethereum. No running, no growing.</p></div>
+          <div><b data-i18n="how.blocks.t">🧱 Block snacks</b><p data-i18n="how.blocks.p">Grow with each Squeekchain block the hamster mines, so the chain's difficulty sets their pace.</p></div>
+          <div><b data-i18n="how.nap.t">💤 Nap snacks</b><p data-i18n="how.nap.p">Grow while Squeektoshi rests and wilt if he runs too much before you pick them.</p></div>
+          <div><b data-i18n="how.fresh.t">🌙 Fresh-run snacks</b><p data-i18n="how.fresh.p">Can only be picked right after he has run, so night owls get them.</p></div>
+          <div><b data-i18n="how.pantry.t">🫙 The pantry</b><p data-i18n="how.pantry.p">Every harvest goes into his shared pantry. When it fills up, new seeds unlock for everyone.</p></div>
+          <div><b data-i18n="how.neighbours.t">🏡 Neighbours</b><p data-i18n="how.neighbours.p">Water a neighbour's plant once a day: their crop grows bigger and you earn points for helping.</p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot" id="foot"></footer>
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+  </body>
+</html>
