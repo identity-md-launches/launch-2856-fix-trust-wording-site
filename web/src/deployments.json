@@ -11,9 +11,9 @@
     "chainId": 11155111,
     "garden": "0xc97FcB52230CC29B37D458bF64818e1550395D6E",
     "deployBlock": 12036803,
-    "squeekCore": "0x980b4424c007caf7a1f3670b48c8eaef7ebc3d44",
-    "sqk": "0x5501e1fa81be1c3f49225fa7668da0245d07db60",
-    "squeekNft": "0xcb98349c134ab983da5bfd80527dfe2552bdb70f",
-    "squeekNftFromBlock": 11998937
+    "squeekCore": "0xfd6c166d4b8e2962e65746a13e5a0797cd4de0c4",
+    "sqk": "0xd78a3956cf63164d1fa1c622ad3c66623162fa1e",
+    "squeekNft": "0xc4c7982657f00509548f3a3a41db7fa439a6856b",
+    "squeekNftFromBlock": 12057556
   }
 }

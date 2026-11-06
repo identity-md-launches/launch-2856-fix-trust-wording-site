@@ -49,8 +49,9 @@ nobody can speed a plant up. Every action is a transaction.
   their progress and carry on with the new hamster counters. If the old core no longer answers (or reset its counters
   in place), `setCore` refuses with `OldCoreUnreadable`; then call `setCoreFrom(newCore, lastReadings)` with the
   garden's `readings()` read at a block before the old core stopped. Ownership cannot be renounced, so this stays
-  reachable; `clearNickname` also bans the name (`setNicknameBanned` lifts it). After a reinstall also update `GENESIS_TS` in
-  `web/src/main.js` (the live nap estimate) and `scripts/squeekchain.js`.
+  reachable; `clearNickname` also bans the name (`setNicknameBanned` lifts it). After a reinstall, put the new addresses
+  and `GENESIS_TS` in `scripts/squeekchain.js`, rehearse `scripts/switch-core.js` on a fork, run it on Sepolia, and copy
+  the addresses into `web/src/deployments.json` and `GENESIS_TS` into `web/src/main.js` (the live nap estimate).
 
 - Paid seeds carry a `dailyLimit` (plantings per player per UTC day) so SQK alone cannot buy the leaderboard;
   `plantedToday(player, seedId)` reports the count.
@@ -88,6 +89,7 @@ scripts/deploy.js              Sepolia deploy (live SqueekCore, SQK, Squeek NFT)
 scripts/deploy-local.js        local playground deploy, started from the real hamster's readings
 scripts/mirror-hamster.js      keeps the local mock SqueekCore in step with the real hamster
 scripts/fork-check.js          checks the contract against the real SqueekCore on a Sepolia fork
+scripts/switch-core.js         moves the deployed garden to a new SqueekCore and SQK after a Squeekchain reinstall
 test/                          contract tests
 web/                           Vite + viem frontend
 web/public/art/                scene art (day and night)

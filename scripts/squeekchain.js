@@ -1,9 +1,10 @@
-// Live Sepolia addresses, from https://api.squeekchain.com/v1/economy/state (identities).
-// A testnet reinstall changes these; re-check that endpoint before deploying.
+// Live Sepolia addresses, from https://api.squeekchain.com/v1/economy/state (deployment.components).
+// A testnet reinstall changes these; re-check that endpoint before deploying, then run scripts/switch-core.js.
 module.exports = {
-  SQUEEK_CORE: "0x980b4424c007caf7a1f3670b48c8eaef7ebc3d44",
-  SQK_TOKEN: "0x5501e1fa81be1c3f49225fa7668da0245d07db60",
-  SQUEEK_NFT: "0xcb98349c134ab983da5bfd80527dfe2552bdb70f", // identities.genesis, the ERC-721 "Squeek" collection
-  SQUEEK_DEPLOY_BLOCK: 11998937, // chain.deploymentBlock: where the web app starts looking for Squeek transfers
+  SQUEEK_CORE: "0xfd6c166d4b8e2962e65746a13e5a0797cd4de0c4", // deployment.components.core
+  SQK_TOKEN: "0xd78a3956cf63164d1fa1c622ad3c66623162fa1e", // deployment.components.token
+  SQUEEK_NFT: "0xc4c7982657f00509548f3a3a41db7fa439a6856b", // deployment.components.collection, the ERC-721 "Squeek"
+  SQUEEK_DEPLOY_BLOCK: 12057556, // chain.deploymentBlock: where the web app starts looking for Squeek transfers
+  GENESIS_TS: 1793735400, // SqueekCore configuration().genesisTimestamp
   SEPOLIA_RPC: "https://ethereum-sepolia-rpc.publicnode.com",
 };

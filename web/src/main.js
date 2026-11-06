@@ -13,6 +13,7 @@ import {
   onWalletChange,
   fetchHamster,
   fetchTypicalNight,
+  fetchCoreGenesis,
 } from "./chain.js";
 import { plantArt, seedArt, hamsterArt, pantryArt, signArt, textures, SEED_COLOR } from "./art.js";
 import { sfx, buzz, isMuted, setMuted } from "./sfx.js";
@@ -35,7 +36,8 @@ const HELP_BONUS = 5n;
 const WORK_PER_KM = 1140;
 const WORK_PER_BLOCK = 11;
 const ROUND_SECONDS = 600;
-const GENESIS_TS = 1793022600; // SqueekCore configuration().genesisTimestamp; update after a Squeekchain reinstall
+// Fallback for the live round estimate; the real value is read from the garden's SqueekCore (configuration()).
+const GENESIS_TS = 1793735400;
 
 const MODE = [
   { key: "work", icon: "⚙️", label: t("mode.0") },
@@ -48,6 +50,8 @@ const state = {
   readings: null, // { work, blockHeight, settledRound }
   coreMap: null, // { base, carried } from coreMapping(): how raw SqueekCore counters become garden readings
   core: deployment?.squeekCore, // read from the garden once loaded
+  genesisTs: GENESIS_TS, // round 0 of that core, read from it whenever the garden moves to another core
+  genesisFor: null,
   sqkToken: deployment?.sqk,
   recentWork: 0n,
   pantry: 0n,
@@ -131,7 +135,7 @@ function liveReadings() {
   if (!h) return null;
   const m = state.coreMap;
   const map = (raw, key) => (m ? m.carried[key] + (raw > m.base[key] ? raw - m.base[key] : 0n) : raw);
-  const nowRound = BigInt(Math.max(0, Math.floor((Date.now() / 1000 - GENESIS_TS) / ROUND_SECONDS) - 1));
+  const nowRound = BigInt(Math.max(0, Math.floor((Date.now() / 1000 - state.genesisTs) / ROUND_SECONDS) - 1));
   return { ...h, liveWork: map(h.liveWork, "work"), liveBlock: map(h.liveBlock, "blockHeight"), liveRound: map(nowRound, "settledRound") };
 }
 
@@ -271,6 +275,12 @@ async function loadCore() {
   ]);
   state.coreMap = { base, carried };
   state.core = core; // the owner can move the garden to a new SqueekCore or SQK after a Squeekchain reinstall
+  if (state.genesisFor !== core && !isLocal) {
+    state.genesisFor = core;
+    fetchCoreGenesis(core)
+      .then((ts) => (state.genesisTs = ts))
+      .catch(() => (state.genesisFor = null)); // keep the fallback and try again on the next load
+  }
   state.sqkToken = sqkToken;
   state.nftOn = BigInt(squeekNft) !== 0n;
   const prevPantry = state.pantry;

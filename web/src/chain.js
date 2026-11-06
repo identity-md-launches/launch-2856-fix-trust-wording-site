@@ -1,4 +1,4 @@
-import { createPublicClient, createWalletClient, custom, http, parseAbi } from "viem";
+import { createPublicClient, createWalletClient, custom, decodeAbiParameters, http, parseAbi, parseAbiParameters } from "viem";
 import { sepolia, hardhat } from "viem/chains";
 import { mnemonicToAccount } from "viem/accounts";
 import gardenAbi from "./abi/SqueekGarden.json";
@@ -121,6 +121,27 @@ export async function fetchHamster() {
     // Share of the next Squeekchain block already mined, 0..1 (the API reports 0..1e9).
     blockProgress: Number(builder?.projected?.blockProgress ?? builder?.anchor?.blockProgress ?? 0) / 1e9,
   };
+}
+
+/** When a SqueekCore's round 0 began, from its configuration(): the first fields are a config hash, then
+ *  genesisTimestamp. Only those two words are decoded, so a longer config in a later core version still reads. */
+export async function fetchCoreGenesis(core) {
+  const { data } = await publicClient.call({ to: core, data: "0x6c70bee9" }); // configuration()
+  const [, genesis] = decodeAbiParameters(parseAbiParameters("bytes32, uint256"), data);
+  const ts = Number(genesis);
+  if (!(ts > 1.7e9 && ts < Date.now() / 1000)) throw new Error("unexpected genesisTimestamp");
+  return ts;
+}
+
+/** The current Squeek collection and the block its install started at, from the Squeekchain API, so a testnet
+ *  reinstall needs no site change. Older API versions listed it under identities.genesis. */
+export async function fetchSqueekCollection() {
+  const res = await fetch(`${API}/economy/state`);
+  if (!res.ok) throw new Error(`Squeekchain API ${res.status}`);
+  const j = await res.json();
+  const address = j.deployment?.components?.collection?.address ?? j.identities?.genesis;
+  if (!address) throw new Error("no collection in the Squeekchain API");
+  return { address, fromBlock: BigInt(j.chain?.deploymentBlock ?? 0) };
 }
 
 /** Average work on the nights the hamster ran during the last 7 days. */

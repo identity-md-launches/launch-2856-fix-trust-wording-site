@@ -1,5 +1,5 @@
 import { parseAbi, parseAbiItem, BaseError, ContractFunctionRevertedError } from "viem";
-import { gardenAbi, deployment, publicClient, logsClient, connectWallet, isLocal } from "./chain.js";
+import { gardenAbi, deployment, publicClient, logsClient, connectWallet, isLocal, fetchSqueekCollection } from "./chain.js";
 import { plantArt, signArt, textures } from "./art.js";
 import { initNav } from "./nav.js";
 import { t } from "./i18n.js";
@@ -19,7 +19,11 @@ const CROPS = ["Sunflower", "Pumpkin", "Block Broccoli", "Timothy Hay", "Golden 
 const SUPPLY = 1000;
 
 // collection: the Squeek NFT contract the garden uses now (its squeekNft()); null while holder plots are off.
-const state = { nftOn: false, collection: null, account: null, walletClient: null };
+// squeekchain: Squeekchain's current collection from its API ({ address, fromBlock }), or the deployment's if the API
+// is down; it survives a testnet reinstall without a site change.
+const state = { nftOn: false, collection: null, squeekchain: null, account: null, walletClient: null };
+const launchCollection = () =>
+  deployment?.squeekNft ? { address: deployment.squeekNft, fromBlock: BigInt(deployment.squeekNftFromBlock ?? 0) } : null;
 const read = (functionName, args) => publicClient.readContract({ address: deployment.garden, abi: gardenAbi, functionName, args });
 
 $("mint-left").innerHTML = t("mint.left", { n: SUPPLY.toLocaleString("en-US"), total: SUPPLY.toLocaleString("en-US") });
@@ -59,7 +63,8 @@ async function loadStatus() {
   }
   setBindEnabled(state.nftOn);
   if (!state.nftOn) $("bind-status").textContent = t("bind.off");
-  const shown = state.collection ?? deployment.squeekNft;
+  if (!isLocal) state.squeekchain = await fetchSqueekCollection().catch(launchCollection);
+  const shown = state.collection ?? state.squeekchain?.address ?? deployment.squeekNft;
   if (shown && !isLocal) {
     const link = `<a href="https://sepolia.etherscan.io/address/${shown}" target="_blank" rel="noopener">${short(shown)}</a>`;
     $("nft-collection").innerHTML = t("know.collectionLink", { link });
@@ -87,7 +92,9 @@ async function showBinding() {
  *  switched to later (setSqueekNft), it is the block the contract appeared in, found once by a binary search on its
  *  code (the log gateway keeps full history) and remembered in this browser. */
 async function collectionStart(collection) {
-  if (collection.toLowerCase() === deployment.squeekNft?.toLowerCase()) return BigInt(deployment.squeekNftFromBlock ?? 0);
+  for (const known of [state.squeekchain, launchCollection()]) {
+    if (known && collection.toLowerCase() === known.address.toLowerCase()) return known.fromBlock;
+  }
   const key = `squeek-garden:nft-start:${collection.toLowerCase()}`;
   try {
     const saved = localStorage.getItem(key);
