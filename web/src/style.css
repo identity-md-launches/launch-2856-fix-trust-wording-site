@@ -2234,11 +2234,6 @@ body.tx-busy .chip.who::after {
     min-width: 0;
   }
 
-  .hud-pantry-text span,
-  .hud-pantry-text b {
-    white-space: nowrap;
-  }
-
   .hud-pantry small {
     max-width: 42%;
   }

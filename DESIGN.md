@@ -4,7 +4,7 @@
 
 Squeek Garden is an existing pixel farming game on Ethereum Sepolia. Its cottage scene, grass plots and snack sprites carry the visual identity; plain interface text explains readings and transactions. This document records the existing implementation.
 
-The November 6, 2026 update syncs the site with the source repository `0xyvz/squeek-garden` at commit `981426474da736cc6341b89777f6831a144cd69a` after Squeekchain reinstalled its Sepolia contracts. `README.md`, `scripts/squeekchain.js`, the new `scripts/switch-core.js`, `web/src/chain.js`, `web/src/main.js`, `web/src/nft.js`, `web/src/deployments.json` and the six `web/src/locales/*.js` files are byte-for-byte copies of that commit (the locales were already identical). At runtime the garden page now reads round 0 from the garden's current SqueekCore (`configuration()`, `web/src/chain.js:128`), falling back to `GENESIS_TS = 1793735400` (`web/src/main.js:40`). The NFT page reads the current Squeek collection from the Squeekchain API (`web/src/chain.js:138`) and falls back to `deployments.json`. The garden stays at `0xc97FcB52230CC29B37D458bF64818e1550395D6E`. Texts, styles and game rules are unchanged. The only other source edit adds share metadata to `web/index.html:8-11` (see Components).
+The November 6, 2026 update syncs the site with the source repository `0xyvz/squeek-garden` at commit `981426474da736cc6341b89777f6831a144cd69a` after Squeekchain reinstalled its Sepolia contracts. `README.md`, `scripts/squeekchain.js`, the new `scripts/switch-core.js`, `web/src/chain.js`, `web/src/main.js`, `web/src/nft.js`, `web/src/deployments.json` and the six `web/src/locales/*.js` files are byte-for-byte copies of that commit (the locales were already identical). At runtime the garden page now reads round 0 from the garden's current SqueekCore (`configuration()`, `web/src/chain.js:128`), falling back to `GENESIS_TS = 1793735400` (`web/src/main.js:40`). The NFT page reads the current Squeek collection from the Squeekchain API (`web/src/chain.js:138`) and falls back to `deployments.json`. The garden stays at `0xc97FcB52230CC29B37D458bF64818e1550395D6E`. Texts and game rules are unchanged. The accepted sync added share metadata to `web/index.html:8-11` (see Components). This revision removes only the mobile pantry label/count `white-space: nowrap` rule from `web/src/style.css`, allowing these strings to wrap inside their column.
 
 ## Colors
 
@@ -40,6 +40,8 @@ Shared headings are 1.6rem/700 (`h1`), 1.25rem/600 (`h2`) and 1.05rem/600 (`h3`)
 
 The garden's `.play` grid has a flexible field and 340px seed sidebar. At 980px it becomes one column; at 760px the lower panels and guide grids become one column and the garden uses three plot columns. At 520px the wallet moves to a full row, navigation becomes more compact and seed cards reduce their artwork column. Arabic sets document `dir="rtl"`; scene, field, addresses and numeric readings preserve their intended direction.
 
+Below 760px, `.hud-pantry-text` (`web/src/style.css:2232`) retains `flex: 1` and `min-width: 0`; its label and count now use normal wrapping. The pantry row grows naturally, preserving the complete strings, original font sizes, jar, progress bar and unlock explanation. The 18 locale/width measurements and the remaining Turkish page overflow are recorded in the revision validation below.
+
 On November 6, all three pages of the production export were measured at 320, 390 and 1440px with no horizontal overflow. At 390×844 the first screen shows the brand, the page navigation, Connect wallet, and the live scene with its readings (`test/scratch/taste/shots/390.png`, inspected).
 
 ## Elevation & Depth
@@ -65,7 +67,9 @@ Cards use `--shadow`: two warm translucent layers in light mode and a small blac
 
 Reuse the existing shared navigation, cards, tokens and full-string locale dictionaries when adding a page. Keep complete passages together for translation, retain natural wrapping, and set language and direction through `initNav()`. Keep addresses and game readings separate from display typography. After a Squeekchain reinstall, follow the README: rehearse and run `scripts/switch-core.js`, then copy the new addresses into `web/src/deployments.json`. The site reads the genesis time and the collection at runtime, so it needs no other change. Never hard-code a core address in the UI: read `core()` from the garden.
 
-## Validation record
+## Validation record from the previous accepted run
+
+The following historical record is retained for context. The revision validation below supersedes its browser coverage and completion statement; in particular, the earlier layout pass did not establish that the pantry was clear with real loaded data in every locale.
 
 The README (copied unchanged from the source commit) covers installation (`npm install`, `npm --prefix web install`), the local dev preview (`npm run web`) and the rebuild (`npm run build`, which runs `npm --prefix web ci` and then `vite build` into the root `dist/`). After building, `npm --prefix web run preview` serves the production export.
 
@@ -104,3 +108,47 @@ Not performed: real wallet connection, chain switch or signing (no wallet availa
 Completion: complete for the stated scope. The sync, rebuild and share metadata are done. The design gaps above already existed and are recorded, not claimed fixed. This is worker-side validation, not independent certification.
 
 Design review used the pinned Better Interface guidance by Jakub Krehel (MIT); documentation organization follows the pinned Impeccable guidance by Paul Bakaus (Apache-2.0). No guide text or implementation was copied into the site.
+
+## Revision validation — November 6, 2026
+
+Scope: reproduce the three reviewer reports, correct the pantry wrapping defect, retain the 13 required source files exactly, and rebuild the existing static site. Review responses are in [`.imd-responses.json`](.imd-responses.json). Machine-readable measurements, source SHA-256 comparisons and check outcomes are in [`docs/revision/validation.json`](docs/revision/validation.json).
+
+### Findings and dispositions
+
+| Finding | Evidence and disposition |
+| --- | --- |
+| Pantry overlap, `0b804f72…` | **Fixed.** With live Sepolia pantry `33 / 150`, English at 320px had a count/“Moon Melon” overlap of 38.23×14.97px; Turkish at 390px had 41.89×14.97px; Spanish at 390px had a label/“Desbloquea” overlap of 16×5.30px. Deleted only the mobile `white-space: nowrap` rule formerly at `web/src/style.css:2237–2240`. After rebuilding, text-node ranges show zero pantry overlaps for all six languages at 320/360/390 (18/18). English 320px pantry height grows from 48.66px to 83.69px; no copy or size changes. |
+| Open Graph fidelity, `ea2ce1f0…` | **Disputed.** A fresh upstream fetch confirms the four head lines are the only `web/index.html` difference. The task explicitly requires `og:title` and `og:image`; deleting all four would break that criterion. The accepted head remains unchanged in this revision, and share passes. An upstream metadata commit would resolve the competing fidelity requirement. |
+| Unknown/loading states, `ba18d008…` | **Reproduced; in-place fix disputed.** With RPC delayed 4 seconds, at 1.5 seconds the stage reports “Can't reach the wheel right now”, pantry shows “0 snacks” and “Every seed is unlocked”, and the wallet container is empty. Garden top moves from 540.47px to 620.47px when data and the wallet button arrive. With RPC aborted while the live API succeeds, pantry still says all seeds are unlocked, the board falsely appears empty, and the read-failure toast appears. These branches are at `web/src/main.js:948`, `:1023`, `:1370` and wallet rendering at `:901`. The exact-copy requirement keeps `main.js` untouched. The upstream maintainer must correct these states and supply a new commit for a later sync. |
+
+Before/after evidence: [English 320 before](docs/revision/en-320-before.png), [after](docs/revision/en-320-after.png); [Turkish 390 before](docs/revision/tr-390-before.png), [after](docs/revision/tr-390-after.png).
+
+### Commands and actual results
+
+| Check | Actual result |
+| --- | --- |
+| Fresh upstream comparison | All 13 named files are still byte-identical to `981426474da736cc6341b89777f6831a144cd69a`; hashes are in the validation JSON. README installation/dev preview/rebuild instructions remain exact. Production preview command: `npm --prefix web run preview`. |
+| `npm run build` after the CSS deletion | Exit 0; 1308 modules; three HTML pages and complete assets in root `dist/`. Build configuration, manifests and lockfiles unchanged. npm reported two existing dependency vulnerabilities; no dependency updates were made. |
+| `tsc --allowJs --noEmit --module esnext --moduleResolution bundler --target es2022 --skipLibCheck web/src/chain.js web/src/main.js web/src/nft.js` | TypeScript 5.9.3, exit 0. This checks syntax/import resolution, with `checkJs` off. |
+| Same command with `--checkJs` | Exit 2, 112 diagnostics in existing JavaScript, including Vite `ImportMeta.env`/glob declarations and inferred DOM/data types. A full inferred-JS typecheck is **not clean**. No JavaScript, dependency or configuration changes were made to suppress diagnostics. |
+| `PLAYWRIGHT_BROWSERS_PATH="$PWD/test/scratch/browsers" node test/scratch/validate.mjs` and `node test/scratch/extra.mjs` with the same browser path | 58/58 assertions passed: 56 functional/measurement assertions plus two assertions confirming the advisory bugs. The latter establish reproduction, not a fix. Normal-path console warnings/errors, script exceptions and missing local resources: zero. Scratch harnesses/dependencies are disposable and excluded from submission; retained results are in the validation JSON. |
+| Primary interactions | Connect without an installed wallet gives the existing installation/open-in-wallet guidance; plot click requests a wallet; seed selection, sound toggle, leaderboard tab, all language picks, Arabic RTL, Garden→Guide→NFT navigation, keyboard FAQ disclosure, real neighbour visit through the form and return all worked. NFT collection is read at runtime, with the mint control explicitly disabled. Nothing was signed. |
+| Responsive inspection | All 18 pantry cases have no text overlap. English Garden/Guide/NFT have no document overflow at 320/390/1440. Light 390×844 screenshots show the product and Connect wallet on the first screen; desktop 1440×900, Arabic 320 and dark 390 were also inspected. English dark pantry is clear at 320/390. |
+| Pinned probe: `IMD_PLAYWRIGHT="$PWD/test/scratch/tooling/node_modules/playwright/index.mjs" PLAYWRIGHT_BROWSERS_PATH="$PWD/test/scratch/browsers" node .imd/reads/skills/design-critic/scripts/taste.mjs --out test/scratch/taste` | Ran unchanged: **9/16** pass — render, layout, targets, eyebrows, slogans, repetition, copy-budget, motion, share. Existing contrast, casing, tracking, type-sizes, type-faces, glyphs and chrome findings remain. The probe used direct browser networking and fallback readings; the separate live-data checks above establish pantry behavior. |
+
+The supplied MCP browser could not launch (`Socket path too long`). Standalone Playwright Chromium 141 inspected the real export under `/preview/`. Direct browser external requests returned `ERR_EMPTY_RESPONSE`; forwarding those requests through `curl -A 'Mozilla/5.0'` returned HTTP 200 from the public RPC and Squeekchain `/status`, `/measurement/stats?range=7d` and `/economy/state`. Successful interactive runs used those live, unmodified responses, including the loaded pantry, leaderboard and NFT collection; no synthetic or replayed readings were used. Production network configuration is unchanged. Direct browser network/CORS success remains unverified.
+
+### Better Interface coverage for the final revision
+
+| Domain | Checked coverage and remaining limits |
+| --- | --- |
+| Accessibility | Native control names/states, language/direction, keyboard FAQ, selected seed/tab state and visible Connect wallet focus ring checked. No screen reader, native zoom, forced-colors or physical-device session. |
+| Layout | Mobile pantry wrap measured in 18 cases with real data; English three-page reflow and mobile/desktop first-screen screenshots inspected. Turkish 320px still has pre-existing page overflow: stage width 318.44px at x=16, identical with the original nowrap rule restored. The other 17 locale/width cases have no document overflow. This unrelated layout behavior was left unchanged. |
+| Writing | Labels/copy retained exactly; no new UI text. Advisory loading/failed-read statements were reproduced and remain an upstream limitation. |
+| Typography | Pantry labels/counts wrap without clipping or font-size changes. Existing tabular-number, body/display stacks retained. Probe scale/family/casing/tracking flags remain under the preserve-styles scope. |
+| Colors | Computed pantry text/background pairs measured: label/unlock 5.60:1 light, 6.28:1 dark; count 13.89:1 light, 13.60:1 dark. Existing 4.0:1 action/nav and 3.9:1 guide-link failures remain; art/gradient contrast was not remeasured. |
+| UI | Existing surfaces, feedback and disabled mint state retained; sound, seed, board, navigation and visit states exercised. Probe reduced-motion check passes. Transaction pending/success/rejection states and slowed animation playback were not exercised. |
+
+WebKit was installed but could not launch because required shared libraries were unavailable; WebKit and Firefox rendering remain unverified. Real wallet connection, chain switching, signing, contract migration, native 200% zoom and assistive-technology testing were not performed. Hosting/ENS/IPFS publication is after submission; this deliverable supplies the rebuilt `dist/` without claiming an updated live deployment.
+
+Completion: the targeted pantry correction, production export and three review responses are complete. The upstream loading/failure defect, Turkish 320px page overflow, inferred-JS typecheck diagnostics and listed browser/accessibility gaps remain documented. No data, assets, measurements or check results were fabricated.
